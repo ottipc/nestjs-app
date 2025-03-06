@@ -1,23 +1,10 @@
-# Basisimage: Node.js
 FROM node:18-alpine
-
-# Arbeitsverzeichnis
+ENV NPM_CONFIG_PROGRESS=false
+ENV NPM_CONFIG_LOGLEVEL=silent
 WORKDIR /app
-
-# Abhängigkeiten kopieren
 COPY package*.json ./
-
-# Installieren
-RUN npm install
-
-# Restlichen Code kopieren
+RUN npm install --no-audit --prefer-offline
 COPY . .
-
-# App bauen
 RUN npm run build
-
-# Port freigeben
 EXPOSE 3000
-
-# App starten
 CMD ["npm", "run", "start:prod"]

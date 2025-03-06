@@ -1,15 +1,10 @@
 import { Module, CacheModule } from '@nestjs/common';
-import { AuthModule } from './auth/auth.module';
-import { UserModule } from './user/user.module';
+import { DummyModule } from './dummy/dummy.module';
 
 @Module({
   imports: [
-    CacheModule.register({
-      ttl: 5, // Sekunden
-      max: 100,
-    }),
-    AuthModule,
-    UserModule,
+    CacheModule.register({ ttl: 60, max: 100, isGlobal: true }), // Cache global machen
+    DummyModule,
   ],
 })
 export class AppModule {}
